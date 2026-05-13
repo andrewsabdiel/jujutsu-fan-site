@@ -19,6 +19,6 @@ This project was designed with special care for visual aesthetics and interactio
 * **JavaScript (ES6):** DOM manipulation, modal logic, slider control, and intersection observers.
 * **Typography:** Custom fonts loaded locally (`Jujutsu Kaisen.ttf`) and integration with Google Fonts (*Cormorant Garamond* and *Crimson Pro*).
 
-## 🚀 How to Run the Project
+## How to Run the Project
 
 As it is a static project using native web technologies, no complex build process is required.
