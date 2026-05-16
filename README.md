@@ -1,38 +1,37 @@
 # Jujutsu Kaisen — Concept Site (Fan Project)
 
-Landing page conceitual inspirada em **Jujutsu Kaisen**, construída como um site estático com foco em atmosfera, composição e microinterações.  
-Inclui seções em tela cheia, sliders (ABOUT e MANGA/ANIME) e um modal de personagens.
+A conceptual landing page inspired by **Jujutsu Kaisen**, built as a static site with a focus on atmosphere, composition, and microinteractions.  
+Includes full-screen sections, sliders (ABOUT and MANGA/ANIME), and a character modal.
 
-> Projeto de fã. Não afiliado a Gege Akutami, Shueisha, TOHO ou MAPPA.
+> Fan project. Not affiliated with Gege Akutami, Shueisha, TOHO, or MAPPA.
 
 ## Demo
-- Live: (adicione aqui o link da Netlify quando publicar)
-- LinkedIn post: (opcional)
+- Live: (https://jujutsu-fan-site-ui.netlify.app/)
 
 ## Preview
-Coloque aqui imagens do resultado final:
+Add final result images here:
 - `Imagens/FINAL/MAIN.png`
 - `Imagens/FINAL/ABOUT 1.png` / `ABOUT 2.png`
 - `Imagens/FINAL/CHARACTERS 1.png` / `CHARACTERS 2.png`
 - `Imagens/FINAL/MANGA.png` / `ANIME.png`
 
 ## Features
-- Seções em tela cheia: `MAIN`, `ABOUT`, `CHARACTERS`, `MANGA/ANIME`
-- Sliders horizontais:
-  - `ABOUT`: 2 telas com navegação por setas e indicadores
-  - `MANGA/ANIME`: 2 telas (Manga ↔ Anime) com setas e indicadores
-- `CHARACTERS`: carrossel com 5 cards visíveis no desktop
-- Modal de personagem ao clicar no card (imagem, nome, título e descrição)
-- Navegação central no `MAIN` e transição para topo ao rolar
-- Ornamentos/cantos e overlays para um ar mais “cinematográfico”
+- Full-screen sections: `MAIN`, `ABOUT`, `CHARACTERS`, `MANGA/ANIME`
+- Horizontal sliders:
+  - `ABOUT`: 2 screens with arrow navigation and indicators
+  - `MANGA/ANIME`: 2 screens (Manga ↔ Anime) with arrows and indicators
+- `CHARACTERS`: carousel with 5 visible cards on desktop
+- Character modal on card click (image, name, title, and description)
+- Center navigation on `MAIN` and transition to top when scrolling
+- Ornaments/corners and overlays for a more “cinematic” look
 
-## Tecnologias
+## Technologies
 - HTML5
-- CSS3 (layout, animações, responsividade)
-- JavaScript (interações, sliders, modal)
+- CSS3 (layout, animations, responsiveness)
+- JavaScript (interactions, sliders, modal)
 - Google Fonts
 
-## Estrutura do Projeto
+## Project Structure
 ```txt
 .
 ├─ index.html
@@ -46,3 +45,4 @@ Coloque aqui imagens do resultado final:
    ├─ DESCRI/
    ├─ TITLES/
    └─ PROTÓTIPO/
+```
