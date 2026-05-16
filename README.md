@@ -1,24 +1,48 @@
-# Jujutsu Kaisen | Web Experience
+# Jujutsu Kaisen — Concept Site (Fan Project)
 
-An immersive and modern landing page developed to celebrate the universe of the **Jujutsu Kaisen** manga and anime. The project was built from scratch, without the use of frameworks, focusing on creating a rich user experience (UX) through smooth animations, well-chosen typography, and a dark, elegant user interface (UI).
+Landing page conceitual inspirada em **Jujutsu Kaisen**, construída como um site estático com foco em atmosfera, composição e microinterações.  
+Inclui seções em tela cheia, sliders (ABOUT e MANGA/ANIME) e um modal de personagens.
 
-## Project Highlights (Features)
+> Projeto de fã. Não afiliado a Gege Akutami, Shueisha, TOHO ou MAPPA.
 
-This project was designed with special care for visual aesthetics and interactions:
+## Demo
+- Live: (adicione aqui o link da Netlify quando publicar)
+- LinkedIn post: (opcional)
 
-* **UI/UX Design:** Immersive color palette (focused on dark tones and gold), clear visual hierarchy, and glassmorphism effects in the navigation bar.
-* **Scroll Reveal & Animations:** Use of `IntersectionObserver` in JavaScript to reveal elements as the user scrolls the page, creating a fluid experience.
-* **Interactive Sliders:** Custom carousels in the "About" and "Manga & Anime" sections, with button and keyboard arrow navigation.
-* **Parallax/Hover Effect Cards:** Characters section with dynamic cards that react to the mouse cursor, opening a detailed modal when clicked.
-* **100% Vanilla:** Structure and styling done entirely with HTML5, CSS3 (with native variables and Grid/Flexbox), and pure JavaScript.
+## Preview
+Coloque aqui imagens do resultado final:
+- `Imagens/FINAL/MAIN.png`
+- `Imagens/FINAL/ABOUT 1.png` / `ABOUT 2.png`
+- `Imagens/FINAL/CHARACTERS 1.png` / `CHARACTERS 2.png`
+- `Imagens/FINAL/MANGA.png` / `ANIME.png`
 
-## Technologies Used
+## Features
+- Seções em tela cheia: `MAIN`, `ABOUT`, `CHARACTERS`, `MANGA/ANIME`
+- Sliders horizontais:
+  - `ABOUT`: 2 telas com navegação por setas e indicadores
+  - `MANGA/ANIME`: 2 telas (Manga ↔ Anime) com setas e indicadores
+- `CHARACTERS`: carrossel com 5 cards visíveis no desktop
+- Modal de personagem ao clicar no card (imagem, nome, título e descrição)
+- Navegação central no `MAIN` e transição para topo ao rolar
+- Ornamentos/cantos e overlays para um ar mais “cinematográfico”
 
-* **HTML5:** Content semantics and structuring.
-* **CSS3:** Custom variables, animations (`@keyframes`), complex transitions, `backdrop-filter`, and responsiveness.
-* **JavaScript (ES6):** DOM manipulation, modal logic, slider control, and intersection observers.
-* **Typography:** Custom fonts loaded locally (`Jujutsu Kaisen.ttf`) and integration with Google Fonts (*Cormorant Garamond* and *Crimson Pro*).
+## Tecnologias
+- HTML5
+- CSS3 (layout, animações, responsividade)
+- JavaScript (interações, sliders, modal)
+- Google Fonts
 
-## How to Run the Project
-
-As it is a static project using native web technologies, no complex build process is required.
+## Estrutura do Projeto
+```txt
+.
+├─ index.html
+└─ Imagens/
+   ├─ LOGO.png
+   ├─ MAIN_bg.png
+   ├─ ABOUT/
+   ├─ ANIME/
+   ├─ MANGA/
+   ├─ CHARACTERS/
+   ├─ DESCRI/
+   ├─ TITLES/
+   └─ PROTÓTIPO/
