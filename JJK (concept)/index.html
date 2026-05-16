@@ -3,1123 +3,1498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jujutsu Kaisen</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="Fan site conceitual de Jujutsu Kaisen com seções sobre história, personagens, manga e anime.">
+    <title>Jujutsu Kaisen | Concept Site</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --gold: #c9a84c;
-            --gold-light: #e8d08a;
-            --gold-dim: #7a6330;
-            --dark: #04040a;
-            --dark-mid: #0c0c18;
-            --text: #ddd5c8;
-            --text-dim: #8a8070;
-            --red: #8b1a1a;
-            --purple: #2a1f4a;
+            --black: #030306;
+            --ink: #07070d;
+            --ink-soft: #11111b;
+            --gold: #ded778;
+            --gold-muted: #8f8744;
+            --white: #f6f0ea;
+            --muted: #b7b0a6;
+            --red: #371017;
+            --plum: #23101e;
+            --blue: #07161d;
+            --line: rgba(222, 215, 120, 0.24);
+            --shadow: 0 30px 90px rgba(0, 0, 0, 0.62);
+            --nav-height: 78px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            background: var(--dark);
-            color: var(--text);
+            min-width: 320px;
+            background: var(--black);
+            color: var(--white);
+            font-family: "Inter", sans-serif;
             overflow-x: hidden;
-            cursor: default;
         }
 
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-track { background: var(--dark); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
-
-        /* ===================== TYPOGRAPHY ===================== */
-        @font-face {
-            font-family: 'Jujutsu Kaisen';
-            src: url('Jujutsu_Kaisen.ttf') format('truetype');
+        body.modal-open {
+            overflow: hidden;
         }
 
-        h1, h2, h3, .logo-text {
-            font-family: 'Jujutsu Kaisen', sans-serif;
-            src: url('Jujutsu_Kaisen.ttf') format('truetype');
-        }
-        p, a, button, span, li {
-            font-family: 'Crimson Pro', serif;
+        img {
+            display: block;
+            max-width: 100%;
         }
 
-        /* ===================== NAV ===================== */
-        nav {
+        button,
+        a {
+            font: inherit;
+        }
+
+        button {
+            border: 0;
+        }
+
+        ::selection {
+            background: rgba(222, 215, 120, 0.28);
+            color: #fff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #030306;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(222, 215, 120, 0.42);
+        }
+
+        .site-shell {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .grain {
             position: fixed;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0.18;
+            mix-blend-mode: soft-light;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 3px 3px;
         }
 
-        nav.nav-center {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        nav.nav-top {
-            top: 0; left: 0;
-            width: 100%;
-            flex-direction: row;
-            padding: 18px 50px;
-            background: linear-gradient(to bottom, rgba(4,4,10,0.97) 0%, transparent 100%);
-            border-bottom: 1px solid rgba(201,168,76,0.08);
-            backdrop-filter: blur(8px);
-        }
-
-        .logo-img {
-            height: 52px;
-            object-fit: contain;
-            transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-            filter: drop-shadow(0 0 12px rgba(201,168,76,0.3));
-        }
-
-        nav.nav-top .logo-img { height: 32px; }
-
-        .nav-divider {
-            display: none;
-            width: 1px;
-            height: 22px;
-            background: var(--gold-dim);
-            margin: 0 24px;
-            opacity: 0.5;
-        }
-        nav.nav-top .nav-divider { display: block; }
-
-        .menu-links {
-            display: flex;
-            gap: 36px;
-            list-style: none;
-        }
-
-        .menu-links a {
-            text-decoration: none;
-            color: var(--text-dim);
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            transition: color 0.3s, text-shadow 0.3s;
-            font-weight: 300;
-        }
-
-        .menu-links a:hover,
-        .menu-links a.active {
-            color: var(--gold);
-            text-shadow: 0 0 20px rgba(201,168,76,0.4);
-        }
-
-        /* ===================== SECTIONS ===================== */
         .section {
-            width: 100vw;
-            height: 100vh;
+            min-height: 100vh;
             position: relative;
             overflow: hidden;
             isolation: isolate;
-            z-index: 0;
         }
 
-        .logo-title-about, 
-        .logo-title-manga, 
-        .logo-title-anime {
-            display: block;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .logo-title-about { width: 300px; }
-        .logo-title-manga { width: 250px; }
-        .logo-title-anime {
-            width: 250px;
-            margin-left: auto;
-        }
-
-        /* ===================== MAIN ===================== */
-        #main {
-            background-image: url('Imagens/MAIN_bg.png');
-            background-size: cover;
-            background-position: center top;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        #main::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(4,4,10,0.1) 0%,
-                rgba(4,4,10,0.0) 30%,
-                rgba(4,4,10,0.6) 75%,
-                rgba(4,4,10,1) 100%
-            );
-            z-index: 1;
-        }
-
-        .main-scroll-hint {
-            position: absolute;
-            bottom: 36px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            opacity: 0;
-            animation: fadeInUp 1s 1.5s forwards;
-        }
-
-        .main-scroll-hint span {
-            font-size: 0.65rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--text-dim);
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 50px;
-            background: linear-gradient(to bottom, var(--gold-dim), transparent);
-            animation: scrollPulse 2s infinite;
-        }
-
-        @keyframes scrollPulse {
-            0%, 100% { opacity: 0.3; transform: scaleY(1); }
-            50% { opacity: 1; transform: scaleY(1.2); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        /* ===================== ABOUT ===================== */
-        #about {
-            background: linear-gradient(135deg, #07090f 0%, #110916 50%, #0a0710 100%);
-        }
-
-        .about-slider-wrapper {
-            display: flex;
-            width: 200vw;
-            height: 100%;
-            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .about-slide {
-            width: 100vw;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            padding: 0 8%;
-            gap: 50px;
-        }
-
-        .about-text {
-            flex: 1;
-            max-width: 380px;
-        }
-
-        .about-text h2 {
-            color: var(--gold);
-            font-size: 5.5rem;
-            line-height: 0.9;
-            margin-bottom: 28px;
-            font-style: italic;
-            letter-spacing: -1px;
-        }
-
-        .about-text p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: var(--text);
-            font-weight: 300;
-        }
-
-        .about-image {
-            flex: 1.0;
-            height: 50vh;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            box-shadow: inset 0 0 0 1px rgba(201,168,76,0.12);
-        }
-
-        .about-image::after {
-            content: '';
-            position: absolute;
-            top: -6px; left: -6px;
-            width: 40px; height: 40px;
-            border-top: 1px solid var(--gold-dim);
-            border-left: 1px solid var(--gold-dim);
-        }
-
-        .about-image .corner-br {
-            position: absolute;
-            bottom: -6px; right: -6px;
-            width: 40px; height: 40px;
-            border-bottom: 1px solid var(--gold-dim);
-            border-right: 1px solid var(--gold-dim);
-        }
-
-        .about-indicators {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .indicator-dot {
-            width: 24px;
-            height: 2px;
-            background: var(--gold-dim);
-            transition: all 0.4s;
-            cursor: pointer;
-        }
-        .indicator-dot.active { background: var(--gold); width: 40px; }
-
-        .arrow-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 12px;
-            transition: transform 0.3s;
-            flex-shrink: 0;
-        }
-        .arrow-btn svg {
-            width: 24px; height: 40px;
-            stroke: var(--gold);
-            stroke-width: 1.5;
-            fill: none;
-            filter: drop-shadow(0 0 8px rgba(201,168,76,0.4));
-            transition: filter 0.3s;
-        }
-        .arrow-btn:hover { transform: scale(1.3); }
-        .arrow-btn:hover svg { filter: drop-shadow(0 0 14px rgba(201,168,76,0.8)); }
-
-        /* ===================== CHARACTERS ===================== */
-        #characters {
-            background-image: url("Imagens/CHARACTERS_bg.png");
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #characters::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(4,4,10,0.55);
-            z-index: 1;
-        }
-
-        .characters-inner {
-            position: relative;
-            z-index: 2;
+        .nav {
+            position: fixed;
+            z-index: 40;
             display: flex;
             align-items: center;
             gap: 20px;
-            width: 88%;
-            height: 72vh;
+            transition:
+                inset 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+                width 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+                height 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+                padding 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+                transform 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+                background 0.35s ease,
+                border-color 0.35s ease,
+                backdrop-filter 0.35s ease;
         }
 
-        .cards-container {
-            display: flex;
-            gap: 16px;
+        .nav.nav-center {
+            inset: 49% auto auto 50%;
+            height: auto;
+            padding: 0;
+            flex-direction: column;
+            transform: translate(-50%, -50%);
+            gap: 26px;
+            background: transparent;
+            border-bottom: 0;
+            backdrop-filter: none;
+        }
+
+        .nav.nav-top {
+            inset: 0 0 auto 0;
             width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
+            height: var(--nav-height);
+            padding: 0 clamp(22px, 6vw, 84px);
+            flex-direction: row;
+            transform: none;
         }
 
-        .card {
-            flex: 0 0 calc(25% - 12px);
-            height: 100%;
-            background-size: cover;
-            background-position: center top;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            filter: brightness(0.55) saturate(0.8);
-            overflow: hidden;
+        .nav.is-scrolled {
+            background: linear-gradient(180deg, rgba(3, 3, 6, 0.92), rgba(3, 3, 6, 0.44));
+            border-bottom: 1px solid rgba(222, 215, 120, 0.11);
+            backdrop-filter: blur(14px);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(4,4,10,0.9) 0%, transparent 50%);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.4s;
+        .nav-logo {
+            width: clamp(138px, 14vw, 190px);
+            flex: 0 0 auto;
+            filter: drop-shadow(0 0 14px rgba(222, 215, 120, 0.2));
+            transition: width 0.55s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
-        .card:hover {
-            filter: brightness(1) saturate(1.1);
-            transform: scale(1.04) translateY(-4px);
-            z-index: 5;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px rgba(201,168,76,0.2);
-        }
-        .card:hover::before { opacity: 1; }
-
-        .card-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 24px 20px;
-            z-index: 2;
-            transform: translateY(10px);
-            opacity: 0;
-            transition: all 0.4s;
-        }
-        .card:hover .card-info {
-            opacity: 1;
-            transform: translateY(0);
+        .nav.nav-center .nav-logo {
+            width: min(260px, 62vw);
         }
 
-        .card-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(0,0,0,0.8);
-            display: block;
-            margin-bottom: 4px;
+        .nav-divider {
+            width: 1px;
+            height: 28px;
+            background: rgba(222, 215, 120, 0.48);
         }
 
-        .card-role {
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gold);
+        .nav.nav-center .nav-divider {
+            display: none;
         }
 
-        /* ===================== MANGA & ANIME ===================== */
-        #manga-anime {
-            background: var(--dark);
-        }
-
-        .manga-anime-slider-wrapper {
-            display: flex;
-            width: 200vw;
-            height: 100%;
-            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .manga-anime-slide {
-            width: 100vw;
-            height: 100%;
+        .nav-links {
+            list-style: none;
             display: flex;
             align-items: center;
-            padding: 0 7%;
-            gap: 50px;
+            gap: clamp(18px, 2.4vw, 34px);
+        }
+
+        .nav.nav-center .nav-links {
+            gap: clamp(34px, 4vw, 58px);
+        }
+
+        .nav-links a {
             position: relative;
+            text-decoration: none;
+            color: rgba(222, 215, 120, 0.72);
+            font-size: 0.74rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            transition: color 0.25s ease;
         }
 
-        .ma-text { flex: 0 0 320px; }
-        .ma-text h2 {
-            font-size: 5rem;
-            font-style: italic;
-            margin-bottom: 22px;
-            line-height: 0.9;
-        }
-        .manga-slide .ma-text h2 { color: var(--gold); }
-        .anime-slide .ma-text h2 { color: #a78bfa; }
-
-        .ma-text p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #bbb;
-            font-weight: 300;
+        .nav.nav-center .nav-links a {
+            font-size: 0.62rem;
+            font-weight: 400;
+            letter-spacing: 0.48em;
+            text-shadow: 0 0 16px rgba(0, 0, 0, 0.72);
         }
 
-        .ma-images {
-            flex: 1;
-            height: 80vh;
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -10px;
+            height: 1px;
+            transform: scaleX(0);
+            background: var(--gold);
+            transition: transform 0.25s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .menu-button {
+            display: none;
+            margin-left: auto;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(3, 3, 6, 0.76);
+            color: var(--gold);
+            border: 1px solid var(--line);
+            cursor: pointer;
+        }
+
+        .menu-button svg,
+        .arrow svg,
+        .modal-close svg,
+        .hero-scroll svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            place-items: end center;
+            padding: var(--nav-height) 24px 38px;
+            background:
+                linear-gradient(90deg, rgba(3,3,6,0.72) 0%, rgba(3,3,6,0.16) 28%, rgba(3,3,6,0.12) 66%, rgba(3,3,6,0.82) 100%),
+                linear-gradient(180deg, rgba(3,3,6,0) 0%, rgba(3,3,6,0.1) 48%, rgba(3,3,6,0.98) 100%),
+                url("Imagens/MAIN_bg.png") center top / cover no-repeat;
+        }
+
+        .hero::before,
+        .characters::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(90deg, rgba(3,3,6,0.86) 0%, transparent 25%, transparent 72%, rgba(3,3,6,0.88) 100%);
+        }
+
+        .hero-content {
+            width: min(220px, 90vw);
+            display: grid;
+            justify-items: center;
+            gap: 12px;
+            text-align: center;
+            transform: none;
             position: relative;
+            z-index: 2;
+        }
+
+        .hero-logo {
+            width: min(430px, 82vw);
+            filter:
+                drop-shadow(0 0 8px rgba(222, 215, 120, 0.18))
+                drop-shadow(0 22px 42px rgba(0, 0, 0, 0.65));
+        }
+
+        .hero-kicker {
+            color: rgba(246, 240, 234, 0.78);
+            max-width: 480px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            letter-spacing: 0;
+        }
+
+        .hero-scroll {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            place-items: center;
+            width: auto;
+            height: auto;
+            color: var(--gold);
+            border: 0;
+            background: transparent;
+            animation: floatScroll 1.9s ease-in-out infinite;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.58rem;
+            letter-spacing: 0.58em;
+            opacity: 0.78;
+        }
+
+        .hero-scroll .scroll-line {
+            width: 1px;
+            height: 48px;
+            background: linear-gradient(180deg, rgba(222, 215, 120, 0.9), transparent);
+        }
+
+        @keyframes floatScroll {
+            0%, 100% { transform: translateY(0); opacity: 0.72; }
+            50% { transform: translateY(8px); opacity: 1; }
+        }
+
+        .slider {
+            height: 100vh;
+            display: flex;
+            transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            flex: 0 0 100vw;
+            position: relative;
+            display: grid;
+            align-items: center;
+            padding: var(--nav-height) clamp(28px, 6.5vw, 88px) 44px;
+        }
+
+        .about {
+            background:
+                radial-gradient(circle at 18% 24%, rgba(0, 90, 92, 0.22), transparent 28%),
+                radial-gradient(circle at 86% 22%, rgba(114, 19, 61, 0.32), transparent 35%),
+                linear-gradient(120deg, #031014 0%, #090911 46%, #2d0b1a 100%);
+        }
+
+        .about-slide {
+            grid-template-columns: minmax(280px, 0.45fr) 64px minmax(420px, 0.9fr);
+            gap: clamp(24px, 4vw, 58px);
+        }
+
+        .about-slide.reverse {
+            grid-template-columns: minmax(420px, 0.9fr) 64px minmax(280px, 0.45fr);
+            background:
+                radial-gradient(circle at 72% 42%, rgba(246, 240, 234, 0.08), transparent 26%),
+                linear-gradient(120deg, #18020d 0%, #341421 48%, #8b4050 100%);
+        }
+
+        .section-title-img {
+            height: auto;
+            margin-bottom: clamp(22px, 3vw, 34px);
+            filter: drop-shadow(0 0 12px rgba(222, 215, 120, 0.14));
+        }
+
+        .about-title {
+            width: min(240px, 58vw);
+        }
+
+        .manga-title,
+        .anime-title {
+            width: min(220px, 58vw);
+        }
+
+        .anime-title {
+            margin-left: auto;
+        }
+
+        .copy {
+            max-width: 430px;
+        }
+
+        .copy p {
+            font-size: clamp(1.08rem, 1.65vw, 1.52rem);
+            line-height: 1.34;
+            color: #fff;
+            letter-spacing: 0;
+        }
+
+        .copy.small p {
+            font-size: clamp(0.92rem, 1vw, 1.02rem);
+            line-height: 1.42;
+            color: rgba(246, 240, 234, 0.9);
+        }
+
+        .about-frame {
+            position: relative;
+            min-height: clamp(330px, 52vh, 520px);
             overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
-        .ma-img {
+        .about-frame::before,
+        .modal::before,
+        .modal::after,
+        .ornament::before,
+        .ornament::after {
+            content: "";
             position: absolute;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.5s, box-shadow 0.5s;
-        }
-        .ma-img:hover {
-            transform: scale(1.03) rotate(0deg) !important;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8) !important;
-            z-index: 10;
+            width: 42px;
+            height: 42px;
+            z-index: 3;
+            pointer-events: none;
         }
 
-        .ma-nav-arrow {
-            position: absolute;
-            right: 7%;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
+        .about-frame::before,
+        .ornament::before,
+        .modal::before {
+            top: -6px;
+            left: -6px;
+            border-top: 1px solid rgba(222, 215, 120, 0.62);
+            border-left: 1px solid rgba(222, 215, 120, 0.62);
         }
-        .anime-slide .ma-nav-arrow {
-            left: 7%;
-            right: auto;
+
+        .about-frame .corner-br,
+        .ornament::after,
+        .modal::after {
+            position: absolute;
+            right: -6px;
+            bottom: -6px;
+            width: 42px;
+            height: 42px;
+            z-index: 3;
+            pointer-events: none;
+            border-right: 1px solid rgba(222, 215, 120, 0.62);
+            border-bottom: 1px solid rgba(222, 215, 120, 0.62);
+        }
+
+        .ornament {
+            position: relative;
+        }
+
+        .about-frame::after,
+        .character-card::after,
+        .media-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            box-shadow: inset 0 0 0 1px rgba(222, 215, 120, 0.08);
+        }
+
+        .about-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .arrow {
+            position: relative;
+            z-index: 3;
+            width: 52px;
+            height: 72px;
+            display: grid;
+            place-items: center;
+            color: var(--gold);
+            background: transparent;
+            cursor: pointer;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        .arrow svg {
+            width: 36px;
+            height: 56px;
+            stroke-width: 1.25;
+            filter: drop-shadow(0 0 12px rgba(222, 215, 120, 0.22));
+        }
+
+        .arrow:hover {
+            transform: scale(1.1);
+            color: #fff6a6;
+        }
+
+        .dots {
+            position: absolute;
+            left: 50%;
+            bottom: 24px;
+            z-index: 4;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 26px;
+            height: 2px;
+            background: rgba(222, 215, 120, 0.34);
+            cursor: pointer;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .dot.active {
+            width: 44px;
+            background: var(--gold);
         }
 
         .section-label {
             position: absolute;
-            bottom: 32px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 16px;
+            bottom: 8px;
+            color: rgba(246, 240, 234, 0.36);
             font-size: 0.62rem;
-            letter-spacing: 5px;
             text-transform: uppercase;
-            color: var(--text-dim);
+            letter-spacing: 0;
         }
 
-        /* ===================== CHARACTER MODAL ===================== */
-        .char-modal-overlay {
+        .characters {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: var(--nav-height) clamp(24px, 6vw, 88px) 52px;
+            background:
+                linear-gradient(180deg, rgba(3,3,6,0.42), rgba(3,3,6,0.9)),
+                url("Imagens/CHARACTERS_bg.png") center / cover no-repeat;
+        }
+
+        .characters-wrap {
+            width: min(1120px, 100%);
+            display: grid;
+            grid-template-columns: 54px minmax(0, 1fr) 54px;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .character-track {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            padding: 20px 4px;
+        }
+
+        .character-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .character-card {
+            flex: 0 0 calc((100% - 96px) / 5);
+            height: clamp(320px, 50vh, 430px);
+            position: relative;
+            overflow: hidden;
+            background: #111;
+            cursor: pointer;
+            box-shadow: 0 26px 60px rgba(0, 0, 0, 0.58);
+            transition: transform 0.36s ease, filter 0.36s ease;
+            filter: saturate(0.95) brightness(0.88);
+        }
+
+        .character-card:hover,
+        .character-card:focus-visible {
+            transform: translateY(-12px) scale(1.025);
+            filter: saturate(1.08) brightness(1);
+            outline: 1px solid rgba(222, 215, 120, 0.46);
+        }
+
+        .character-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.4s ease;
+        }
+
+        .character-card:hover img,
+        .character-card:focus-visible img {
+            transform: scale(1.05);
+        }
+
+        .character-info {
+            position: absolute;
+            inset: auto 0 0;
+            z-index: 2;
+            padding: 70px 24px 22px;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.92));
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .character-card:hover .character-info,
+        .character-card:focus-visible .character-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .character-name {
+            display: block;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(2.3rem, 2vw, 3.25rem);
+            font-weight: 700;
+            line-height: 0.86;
+            color: #fff;
+        }
+
+        .character-title {
+            display: block;
+            margin-top: 10px;
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0;
+        }
+
+        .media {
+            background:
+                radial-gradient(circle at 22% 36%, rgba(86, 11, 12, 0.52), transparent 34%),
+                radial-gradient(circle at 82% 40%, rgba(31, 45, 88, 0.54), transparent 38%),
+                linear-gradient(90deg, #080000 0%, #23060a 48%, #10152d 100%);
+        }
+
+        .media-slide {
+            grid-template-columns: minmax(260px, 0.36fr) 64px minmax(520px, 0.95fr);
+            gap: clamp(22px, 4vw, 52px);
+        }
+
+        .media-slide.anime-slide {
+            grid-template-columns: minmax(520px, 0.95fr) 64px minmax(260px, 0.36fr);
+            background:
+                radial-gradient(circle at 26% 30%, rgba(147, 23, 16, 0.44), transparent 28%),
+                radial-gradient(circle at 80% 52%, rgba(43, 61, 128, 0.44), transparent 36%),
+                linear-gradient(90deg, #180102 0%, #1c070f 48%, #11182e 100%);
+        }
+
+        .media-copy {
+            max-width: 360px;
+        }
+
+        .media-copy.align-right {
+            text-align: right;
+            justify-self: end;
+        }
+
+        .media-copy p {
+            color: rgba(246, 240, 234, 0.9);
+            font-size: clamp(0.88rem, 1vw, 1rem);
+            line-height: 1.45;
+            letter-spacing: 0;
+        }
+
+        .media-collage {
+            position: relative;
+            height: min(66vh, 560px);
+            min-height: 430px;
+        }
+
+        .media-img {
+            position: absolute;
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 20px 54px rgba(0, 0, 0, 0.54);
+            transition: transform 0.32s ease, z-index 0.32s ease;
+        }
+
+        .media-img:hover {
+            z-index: 9 !important;
+            transform: translateY(-8px) scale(1.035);
+        }
+
+        .media-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .manga-collage .img-5 { width: 22%; height: 48%; left: 14%; bottom: 10%; z-index: 1; }
+        .manga-collage .img-1 { width: 38%; height: 34%; left: 7%; top: 2%; z-index: 2; }
+        .manga-collage .img-2 { width: 24%; height: 60%; left: 73%; top: 1%; z-index: 4; }
+        .manga-collage .img-4 { width: 24%; height: 60%; left: 66%; bottom: 2%; z-index: 8; }
+        .manga-collage .img-3 { width: 50%; height: 48%; left: 30%; top: 25%; z-index: 5; }
+
+        .anime-collage .img-1 { width: 32%; height: 35%; left: 2%; top: 1%; z-index: 3; }
+        .anime-collage .img-2 { width: 40%; height: 50%; left: 24%; top: 26%; z-index: 4; }
+        .anime-collage .img-3 { width: 32%; height: 34%; left: 53%; top: 12%; z-index: 1; }
+        .anime-collage .img-4 { width: 35%; height: 36%; left: 60%; top: 54%; z-index: 8; }
+        .anime-collage .img-5 { width: 35%; height: 35%; left: 3%; top: 60%; z-index: 5; }
+
+        .footer {
+            position: relative;
+            z-index: 1;
+            padding: 62px clamp(28px, 7vw, 96px) 42px;
+            background:
+                linear-gradient(180deg, rgba(3, 3, 6, 0.96), #030306),
+                radial-gradient(circle at 18% 0%, rgba(222, 215, 120, 0.08), transparent 28%);
+            border-top: 1px solid rgba(222, 215, 120, 0.13);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: minmax(260px, 1.35fr) repeat(2, minmax(170px, 0.5fr));
+            gap: 42px;
+        }
+
+        .footer-logo {
+            width: 178px;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 0 10px rgba(222, 215, 120, 0.14));
+        }
+
+        .footer p {
+            max-width: 480px;
+            color: rgba(246, 240, 234, 0.66);
+            line-height: 1.7;
+            font-size: 0.92rem;
+            letter-spacing: 0;
+        }
+
+        .footer h3 {
+            margin-bottom: 16px;
+            color: var(--gold);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0;
+        }
+
+        .footer ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        .footer a {
+            color: rgba(246, 240, 234, 0.66);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.25s ease;
+        }
+
+        .footer a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            margin-top: 42px;
+            padding-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 14px;
+            border-top: 1px solid rgba(222, 215, 120, 0.1);
+            color: rgba(246, 240, 234, 0.44);
+            font-size: 0.78rem;
+            letter-spacing: 0;
+        }
+
+        .modal-overlay {
             position: fixed;
             inset: 0;
-            z-index: 2000;
-            background: rgba(4,4,10,0.92);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            z-index: 100;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+            background: rgba(3, 3, 6, 0.82);
+            backdrop-filter: blur(14px);
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s;
+            visibility: hidden;
+            transition: opacity 0.28s ease, visibility 0.28s ease;
         }
-        .char-modal-overlay.open {
+
+        .modal-overlay.open {
             opacity: 1;
-            pointer-events: all;
+            visibility: visible;
         }
 
-        .char-modal {
-            display: flex;
-            align-items: stretch;
-            width: 100vw;
-            max-width: 2000px;
-            height: 75vh;
-            background: linear-gradient(135deg, #09090f, #100c18);
-            border: 1px solid rgba(201,168,76,0.15);
+        .modal {
+            width: min(1040px, 100%);
+            height: min(620px, calc(100vh - 56px));
+            max-height: calc(100vh - 56px);
+            display: grid;
+            grid-template-columns: minmax(260px, 0.92fr) minmax(280px, 1.08fr);
             position: relative;
-            transform: scale(0.92) translateY(20px);
-            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
             overflow: hidden;
-        }
-        .char-modal-overlay.open .char-modal {
-            transform: scale(1) translateY(0);
+            background:
+                linear-gradient(135deg, rgba(10, 10, 18, 0.98), rgba(26, 10, 18, 0.98)),
+                #090910;
+            border: 1px solid rgba(222, 215, 120, 0.22);
+            box-shadow: 0 32px 100px rgba(0, 0, 0, 0.74);
+            transform: translateY(20px) scale(0.98);
+            transition: transform 0.28s ease;
         }
 
-        .char-modal::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 60px; height: 60px;
-            border-top: 1px solid var(--gold);
-            border-left: 1px solid var(--gold);
-            z-index: 1;
+        .modal::before,
+        .modal::after {
+            width: 62px;
+            height: 62px;
         }
-        .char-modal::after {
-            content: '';
-            position: absolute;
-            bottom: 0; right: 0;
-            width: 60px; height: 60px;
-            border-bottom: 1px solid var(--gold);
-            border-right: 1px solid var(--gold);
-            z-index: 1;
+
+        .modal-overlay.open .modal {
+            transform: translateY(0) scale(1);
         }
 
         .modal-image {
-            flex: 0 0 42%;
-            background-size: cover;
-            background-position: center top;
             position: relative;
+            min-height: 0;
+            background: #111;
         }
+
         .modal-image::after {
-            content: '';
+            content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, transparent 60%, rgba(9,9,15,1) 100%);
+            background: linear-gradient(90deg, transparent 55%, rgba(10, 10, 18, 0.92));
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
         }
 
         .modal-content {
-            flex: 1;
-            padding: 60px 50px 60px 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: clamp(34px, 5vw, 74px);
+            display: grid;
+            align-content: center;
+            gap: 18px;
         }
 
-        .modal-role {
-            font-size: 0.68rem;
-            letter-spacing: 4px;
+        .modal-kicker {
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            color: var(--gold-dim);
-            margin-bottom: 12px;
+            letter-spacing: 0;
         }
 
         .modal-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 4.5rem;
-            line-height: 0.9;
-            color: #fff;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(3rem, 6vw, 5.4rem);
             font-weight: 700;
-            margin-bottom: 30px;
-            font-style: italic;
+            line-height: 0.88;
         }
 
         .modal-divider {
-            width: 60px;
+            width: 74px;
             height: 1px;
-            background: var(--gold);
-            margin-bottom: 28px;
+            background: linear-gradient(90deg, var(--gold), transparent);
         }
 
         .modal-desc {
-            font-size: 1.05rem;
-            line-height: 1.9;
-            color: #bbb;
-            font-weight: 300;
-            max-width: 380px;
+            max-width: 480px;
+            color: rgba(246, 240, 234, 0.78);
+            line-height: 1.8;
+            font-size: 1rem;
+            letter-spacing: 0;
         }
 
         .modal-close {
             position: absolute;
-            top: 24px;
-            right: 24px;
-            background: none;
-            border: 1px solid rgba(201,168,76,0.2);
-            color: var(--gold-dim);
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            font-size: 1rem;
-            z-index: 5;
-        }
-        .modal-close:hover {
-            background: rgba(201,168,76,0.1);
-            color: var(--gold);
-            border-color: var(--gold);
-        }
-
-        /* ===================== FOOTER ===================== */
-        footer {
-            background: var(--dark);
-            border-top: 1px solid rgba(201,168,76,0.08);
-            padding: 60px 10% 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-inner {
+            top: 20px;
+            right: 20px;
+            z-index: 3;
+            width: 44px;
+            height: 44px;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 50px;
-        }
-
-        .footer-brand h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            place-items: center;
             color: var(--gold);
-            font-style: italic;
-            margin-bottom: 12px;
+            background: rgba(3, 3, 6, 0.72);
+            border: 1px solid rgba(222, 215, 120, 0.22);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
 
-        .footer-brand p {
-            font-size: 0.9rem;
-            line-height: 1.7;
-            color: var(--text-dim);
-            max-width: 300px;
-            font-weight: 300;
+        .modal-close:hover {
+            color: #fff;
+            background: rgba(222, 215, 120, 0.09);
+            border-color: rgba(222, 215, 120, 0.54);
         }
 
-        .footer-col h4 {
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--gold);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            margin-bottom: 18px;
-        }
-
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 10px; }
-        .footer-col ul li a {
-            text-decoration: none;
-            color: var(--text-dim);
-            font-size: 0.88rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-        .footer-col ul li a:hover { color: var(--gold); }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(201,168,76,0.08);
-            padding-top: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-bottom p {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            letter-spacing: 1px;
-        }
-
-        .logo-titulo-about, 
-        .logo-titulo-manga, 
-        .logo-titulo-anime {
-            display: block;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .logo-titulo-about {
-            width: 300px;
-        }
-
-        .logo-titulo-manga {
-            width: 250px;
-        }
-
-        .logo-titulo-anime {
-            width: 250px;
-            margin-left: auto;
-        }
-
-        .footer-bottom p span { color: var(--gold-dim); }
-
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 200px;
-        }
-
-        /* ===================== SCROLL ANIMATIONS ===================== */
         .reveal {
             opacity: 0;
-            transform: translateY(24px);
-            transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(26px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
         }
+
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .reveal-delay-1 { transition-delay: 0.15s; }
-        .reveal-delay-2 { transition-delay: 0.3s; }
 
-        #navbar { opacity: 0; transition: opacity 0.8s; }
-        #navbar.loaded { opacity: 1; }
+        @media (max-width: 1050px) {
+            .about-slide,
+            .about-slide.reverse,
+            .media-slide,
+            .media-slide.anime-slide {
+                grid-template-columns: 1fr;
+                align-content: center;
+                gap: 24px;
+                padding-top: calc(var(--nav-height) + 22px);
+            }
+
+            .about-slide.reverse .about-frame {
+                order: 1;
+            }
+
+            .about-slide.reverse .arrow {
+                order: 2;
+            }
+
+            .about-slide.reverse .copy {
+                order: 3;
+            }
+
+            .about-frame {
+                min-height: 34vh;
+            }
+
+            .arrow {
+                width: 48px;
+                height: 48px;
+                justify-self: center;
+                transform: rotate(90deg);
+            }
+
+            .arrow:hover {
+                transform: rotate(90deg) scale(1.08);
+            }
+
+            .media-copy,
+            .media-copy.align-right {
+                max-width: 620px;
+                text-align: left;
+                justify-self: start;
+            }
+
+            .anime-title {
+                margin-left: 0;
+            }
+
+            .media-collage {
+                width: 100%;
+                height: 42vh;
+                min-height: 300px;
+            }
+
+            .characters-wrap {
+                width: min(760px, 100%);
+            }
+        }
+
+        @media (max-width: 820px) {
+            :root {
+                --nav-height: 70px;
+            }
+
+            .nav {
+                padding-inline: 20px;
+            }
+
+            .nav-divider,
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: grid;
+            }
+
+            .nav.menu-open {
+                background: rgba(3, 3, 6, 0.96);
+                border-bottom: 1px solid rgba(222, 215, 120, 0.14);
+                backdrop-filter: blur(16px);
+            }
+
+            .nav.menu-open .nav-links {
+                display: grid;
+                position: absolute;
+                left: 20px;
+                right: 20px;
+                top: calc(var(--nav-height) - 4px);
+                padding: 22px;
+                background: rgba(5, 5, 10, 0.98);
+                border: 1px solid rgba(222, 215, 120, 0.18);
+                box-shadow: var(--shadow);
+            }
+
+            .hero {
+                background-position: center top;
+            }
+
+            .hero-content {
+                transform: translateY(-3vh);
+            }
+
+            .characters-wrap {
+                grid-template-columns: 44px minmax(0, 1fr) 44px;
+                gap: 8px;
+            }
+
+            .character-card {
+                flex-basis: min(66vw, 260px);
+                height: 390px;
+            }
+
+            .modal {
+                grid-template-columns: 1fr;
+                height: auto;
+                max-height: calc(100vh - 56px);
+                overflow-y: auto;
+            }
+
+            .modal-image {
+                min-height: 360px;
+            }
+
+            .modal-image::after {
+                background: linear-gradient(180deg, transparent 48%, rgba(10, 10, 18, 0.88));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .slide,
+            .characters {
+                padding-inline: 18px;
+            }
+
+            .copy p {
+                font-size: 1rem;
+                line-height: 1.45;
+            }
+
+            .about-frame {
+                min-height: 270px;
+            }
+
+            .media-collage {
+                min-height: 260px;
+            }
+
+            .media-img {
+                box-shadow: 0 14px 34px rgba(0, 0, 0, 0.54);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="site-shell">
+        <div class="grain" aria-hidden="true"></div>
 
-<!-- ===================== NAV ===================== -->
-<nav id="navbar" class="nav-center">
-    <img src="Imagens/LOGO.png" alt="Jujutsu Kaisen Logo" class="logo-img">
-    <span class="nav-divider"></span>
-    <ul class="menu-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#characters">Characters</a></li>
-        <li><a href="#manga-anime" id="manga-link">Manga</a></li>
-        <li><a href="#manga-anime" id="anime-link">Anime</a></li>
-    </ul>
-</nav>
-
-<!-- ===================== MAIN ===================== -->
-<section id="main" class="section">
-    <div class="main-scroll-hint">
-        <span>Scroll</span>
-        <div class="scroll-line"></div>
-    </div>
-</section>
-
-<!-- ===================== ABOUT ===================== -->
-<section id="about" class="section">
-    <div class="about-slider-wrapper" id="about-slider-wrapper">
-
-        <!-- Slide 1 -->
-        <div class="about-slide reveal">
-            <div class="about-text">
-                <img src="Imagens/TITLES/ABOUT.png" alt="Jujutsu Kaisen Logo" class="logo-title-about">
-                <p>In a world haunted by Curses — cruel monsters born from negative human emotions — humanity is secretly protected by Jujutsu Sorcerers. The story follows Yuji Itadori, a high school student with superhuman strength whose life is turned upside down when he swallows a cursed finger to save his friends from an attack.</p>
-            </div>
-            <button class="arrow-btn" onclick="moveAboutSlider(1)">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-            <div class="about-image" style="background-image:url(Imagens/ABOUT/ITADORI.png);">
-                <div class="corner-br"></div>
-            </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="about-slide">
-            <div class="about-image" style="background-image:url(Imagens/ABOUT/SUKUNA.png);">
-                <div class="corner-br"></div>
-            </div>
-            <button class="arrow-btn" onclick="moveAboutSlider(0)">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <div class="about-text">
-                <p>The artifact belonged to Ryomen Sukuna, the dreaded <em>"King of Curses."</em> By becoming the monster's vessel, Itadori is sentenced to death. However, under the guidance of the powerful sorcerer Satoru Gojo, his execution is postponed on one condition: find and consume all of Sukuna's remaining fingers, and ultimately be executed to eradicate the curse forever.</p>
-            </div>
-        </div>
-
-    </div>
-    <div class="about-indicators">
-        <div class="indicator-dot active" onclick="moveAboutSlider(0)"></div>
-        <div class="indicator-dot" onclick="moveAboutSlider(1)"></div>
-    </div>
-</section>
-
-<!-- ===================== CHARACTERS ===================== -->
-<section id="characters" class="section">
-    <div class="characters-inner reveal">
-        <button class="arrow-btn" onclick="scrollCards(-1)">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <div class="cards-container" id="cards-container">
-            <div class="card" style="background-image:url(Imagens/CHARACTERS/Satoru_Gojo.jpg);" onclick="openModal('gojo')">
-                <div class="card-info">
-                    <span class="card-name">Gojo</span>
-                    <span class="card-role">The Honored One</span>
-                </div>
-            </div>
-            <div class="card" style="background-image:url(Imagens/CHARACTERS/Ryomen_Sukuna.png);" onclick="openModal('sukuna')">
-                <div class="card-info">
-                    <span class="card-name">Sukuna</span>
-                    <span class="card-role">King of Curses</span>
-                </div>
-            </div>
-            <div class="card" style="background-image:url(Imagens/CHARACTERS/Yuji_Itadori.png);" onclick="openModal('itadori')">
-                <div class="card-info">
-                    <span class="card-name">Itadori</span>
-                    <span class="card-role">Sukuna's Vessel</span>
-                </div>
-            </div>
-            <div class="card" style="background-image:url(Imagens/CHARACTERS/Yuta_Okkotsu.png); background-position: center;" onclick="openModal('yuta')">
-                <div class="card-info">
-                    <span class="card-name">Yuta</span>
-                    <span class="card-role">The Prodige</span>
-                </div>
-            </div>
-            <div class="card" style="background-image:url(Imagens/CHARACTERS/Toji_Fushiguro.PNG);" onclick="openModal('toji')">
-                <div class="card-info">
-                    <span class="card-name">Toji</span>
-                    <span class="card-role">The Sorcerer Slayer</span>
-                </div>
-            </div>
-        </div>
-        <button class="arrow-btn" onclick="scrollCards(1)">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-    </div>
-</section>
-
-<!-- ===================== MANGA & ANIME ===================== -->
-<section id="manga-anime" class="section">
-    <div class="manga-anime-slider-wrapper" id="ma-slider-wrapper">
-
-        <!-- MANGA SLIDE -->
-        <div class="manga-anime-slide manga-slide">
-            <div class="ma-text reveal">
-                <img src="Imagens/TITLES/MANGA.png" alt="Jujutsu Kaisen Logo" class="logo-title-manga">
-                <p>Created by Gege Akutami and launched in 2018 in Weekly Shōnen Jump, Jujutsu Kaisen stands out for its dark tone, strategic battles, and willingness to subvert shōnen clichés. Fueled by its massive anime adaptation, the manga became a global phenomenon, surpassing 90 million copies sold before concluding in September 2024.</p>
-            </div>
-            <div class="ma-images reveal reveal-delay-1">
-                <div class="ma-img" style="background-image:url(Imagens/MANGA/JJK.webp); width:340px; height:210px; top:2%; left:20%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/MANGA/MAKI.avif); width:220px; height:340px; top:9%; left:75%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/MANGA/DOMAIN.webp); width:455px; height: 300px; top:25%; left:35%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/MANGA/YUTA.jpg); width:210px; height:310px; bottom:11%; left:70%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/MANGA/GOJO.PNG); width:200px; height:300px; bottom:10%; left:22%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-            </div>
-            <button class="arrow-btn ma-nav-arrow" onclick="moveMASlider(1)">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-        </div>
-
-        <!-- ANIME SLIDE -->
-        <div class="manga-anime-slide anime-slide" style="background: linear-gradient(135deg, #04040a 0%, #0d0820 100%);">
-            <button class="arrow-btn ma-nav-arrow" onclick="moveMASlider(0)">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <div class="ma-images">
-                <div class="ma-img" style="background-image:url(Imagens/ANIME/PUNCH.avif); width: 340px; height:210px; top:6%; left:0%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/ANIME/PURPLE.avif); width:330px; height:180px; top:15%; left:40%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/ANIME/120%.webp); width:455px; height: 260px; top: 25%; left:10%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/ANIME/WATER.jpg); width:300px; height:190px; bottom:30%; left:45%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-                <div class="ma-img" style="background-image:url(Imagens/ANIME/SHRINE.jpg); width:340px; height:200px; bottom:20%; left:2%; box-shadow:0 15px 45px rgba(0,0,0,0.8);"></div>
-            </div>
-            <div class="ma-text" style="text-align:right;">
-                <img src="Imagens/TITLES/ANIME.png" alt="Jujutsu Kaisen Logo" class="logo-title-anime">
-                <p>Produced by MAPPA, the anime adaptation of Jujutsu Kaisen premiered in 2020 and quickly became a cultural phenomenon. Renowned for its fluid animation, intense fight sequences, and faithful adaptation, the series redefined the expectations for action anime and captivated audiences worldwide.</p>
-            </div>
-        </div>
-
-    </div>
-    <div class="about-indicators" id="ma-indicators">
-        <div class="indicator-dot active" onclick="moveMASlider(0)"></div>
-        <div class="indicator-dot" onclick="moveMASlider(1)"></div>
-    </div>
-</section>
-
-<!-- ===================== FOOTER ===================== -->
-<footer>
-    <div class="footer-inner">
-        <div class="footer-brand">
-            <img src="Imagens/LOGO.png" alt="Jujutsu Kaisen Logo" class="logo-img">
-            <p>A world where curses lurk in the shadows, sorcerers fight to protect humanity, and the line between life and death is written in cursed energy.</p>
-        </div>
-        <div class="footer-col">
-            <h4>Navigate</h4>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#characters">Characters</a></li>
-                <li><a href="#manga-anime">Manga</a></li>
-                <li><a href="#manga-anime">Anime</a></li>
+        <nav class="nav nav-center" id="navbar" aria-label="Navegacao principal">
+            <a href="#main" aria-label="Ir para o inicio">
+                <img class="nav-logo" src="Imagens/LOGO.png" alt="Jujutsu Kaisen">
+            </a>
+            <div class="nav-divider" aria-hidden="true"></div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about" data-nav="about">About</a></li>
+                <li><a href="#characters" data-nav="characters">Characters</a></li>
+                <li><a href="#manga-anime" data-nav="manga">Manga</a></li>
+                <li><a href="#manga-anime" data-nav="anime">Anime</a></li>
             </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Official Links</h4>
-            <ul>
-                <li><a href="https://www.viz.com/jujutsu-kaisen" target="_blank">VIZ Media</a></li>
-                <li><a href="https://www.crunchyroll.com" target="_blank">Crunchyroll</a></li>
-                <li><a href="https://www.shonenjump.com" target="_blank">Shōnen Jump</a></li>
-            </ul>
+            <button class="menu-button" id="menu-button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h16M4 12h16M4 17h16"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <section class="section hero" id="main">
+            <div class="hero-content reveal">
+                <a class="hero-scroll" href="#about" aria-label="Ir para About">
+                    <span>Scroll</span>
+                    <span class="scroll-line" aria-hidden="true"></span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="slider" id="about-slider">
+                <article class="slide about-slide">
+                    <div class="copy reveal">
+                        <img class="section-title-img about-title" src="Imagens/TITLES/ABOUT.png" alt="About">
+                        <p>In a world haunted by Curses, cruel monsters born from negative human emotions, humanity is secretly protected by Jujutsu Sorcerers. The story follows Yuji Itadori, a high school student with superhuman strength whose life is turned upside down when he swallows a cursed finger to save his friends from an attack.</p>
+                    </div>
+
+                    <button class="arrow" data-about-next aria-label="Proxima tela de About">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <figure class="about-frame reveal">
+                        <img src="Imagens/ABOUT/ITADORI.png" alt="Yuji Itadori">
+                        <span class="corner-br" aria-hidden="true"></span>
+                    </figure>
+                </article>
+
+                <article class="slide about-slide reverse">
+                    <figure class="about-frame reveal">
+                        <img src="Imagens/ABOUT/SUKUNA.png" alt="Ryomen Sukuna">
+                        <span class="corner-br" aria-hidden="true"></span>
+                    </figure>
+
+                    <button class="arrow" data-about-prev aria-label="Tela anterior de About">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M15 5l-7 7 7 7"></path>
+                        </svg>
+                    </button>
+
+                    <div class="copy reveal">
+                        <p>The artifact belonged to Ryomen Sukuna, the dreaded "King of Curses." By becoming the monster's vessel, Itadori is sentenced to death. However, under the guidance of the powerful sorcerer Satoru Gojo, his execution is postponed on one condition: join Jujutsu High School, find and consume all of Sukuna's remaining fingers, and ultimately be executed to eradicate the curse from the world forever.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="dots" aria-label="Controle do slider About">
+                <button class="dot active" data-about-dot="0" aria-label="About tela 1"></button>
+                <button class="dot" data-about-dot="1" aria-label="About tela 2"></button>
+            </div>
+        </section>
+
+        <section class="section characters" id="characters">
+            <div class="characters-wrap ornament reveal">
+                <button class="arrow" id="characters-prev" aria-label="Personagens anteriores">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 5l-7 7 7 7"></path>
+                    </svg>
+                </button>
+
+                <div class="character-track" id="character-track">
+                    <button class="character-card" data-character="gojo">
+                        <img src="Imagens/CHARACTERS/Satoru_Gojo.jpg" alt="Satoru Gojo">
+                        <span class="character-info">
+                            <span class="character-name">Gojo</span>
+                            <span class="character-title">The Honored One</span>
+                        </span>
+                    </button>
+
+                    <button class="character-card" data-character="sukuna">
+                        <img src="Imagens/CHARACTERS/Ryomen_Sukuna.png" alt="Ryomen Sukuna">
+                        <span class="character-info">
+                            <span class="character-name">Sukuna</span>
+                            <span class="character-title">King of Curses</span>
+                        </span>
+                    </button>
+
+                    <button class="character-card" data-character="itadori">
+                        <img src="Imagens/CHARACTERS/Yuji_Itadori.png" alt="Yuji Itadori">
+                        <span class="character-info">
+                            <span class="character-name">Itadori</span>
+                            <span class="character-title">Sukuna's Vessel</span>
+                        </span>
+                    </button>
+
+                    <button class="character-card" data-character="yuta">
+                        <img src="Imagens/CHARACTERS/Yuta_Okkotsu.png" alt="Yuta Okkotsu">
+                        <span class="character-info">
+                            <span class="character-name">Yuta</span>
+                            <span class="character-title">Special Grade</span>
+                        </span>
+                    </button>
+
+                    <button class="character-card" data-character="toji">
+                        <img src="Imagens/CHARACTERS/Toji_Fushiguro.PNG" alt="Toji Fushiguro">
+                        <span class="character-info">
+                            <span class="character-name">Toji</span>
+                            <span class="character-title">Sorcerer Killer</span>
+                        </span>
+                    </button>
+                </div>
+
+                <button class="arrow" id="characters-next" aria-label="Proximos personagens">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <section class="section media" id="manga-anime">
+            <div class="slider" id="media-slider">
+                <article class="slide media-slide">
+                    <div class="media-copy reveal">
+                        <img class="section-title-img manga-title" src="Imagens/TITLES/MANGA.png" alt="Manga">
+                        <p>Created by Gege Akutami and launched in 2018 in Weekly Shonen Jump magazine, Jujutsu Kaisen stands out for its dark tone, strategic battles, and willingness to subvert shonen cliches. The story gains incredible depth starting with the landmark Shibuya Incident arc, becoming a brutal tale of survival. Fueled by the massive success of its anime adaptation, the manga became a global phenomenon, surpassing 90 million copies sold before officially concluding in September 2024.</p>
+                    </div>
+
+                    <button class="arrow" data-media-next aria-label="Ir para Anime">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <div class="media-collage manga-collage ornament reveal">
+                        <figure class="media-img img-1"><img src="Imagens/MANGA/JJK.webp" alt="Jujutsu Kaisen manga"></figure>
+                        <figure class="media-img img-2"><img src="Imagens/MANGA/MAKI.avif" alt="Maki manga art"></figure>
+                        <figure class="media-img img-3"><img src="Imagens/MANGA/DOMAIN.webp" alt="Domain manga panel"></figure>
+                        <figure class="media-img img-4"><img src="Imagens/MANGA/YUTA.jpg" alt="Yuta manga art"></figure>
+                        <figure class="media-img img-5"><img src="Imagens/MANGA/GOJO.PNG" alt="Gojo manga art"></figure>
+                    </div>
+                </article>
+
+                <article class="slide media-slide anime-slide">
+                    <div class="media-collage anime-collage ornament reveal">
+                        <figure class="media-img img-1"><img src="Imagens/ANIME/PUNCH.avif" alt="Anime fight scene"></figure>
+                        <figure class="media-img img-2"><img src="Imagens/ANIME/WATER.jpg" alt="Anime water scene"></figure>
+                        <figure class="media-img img-3"><img src="Imagens/ANIME/SHRINE.jpg" alt="Sukuna shrine scene"></figure>
+                        <figure class="media-img img-4"><img src="Imagens/ANIME/120%.png" alt="Anime action frame"></figure>
+                        <figure class="media-img img-5"><img src="Imagens/ANIME/PURPLE.avif" alt="Gojo purple scene"></figure>
+                    </div>
+
+                    <button class="arrow" data-media-prev aria-label="Voltar para Manga">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M15 5l-7 7 7 7"></path>
+                        </svg>
+                    </button>
+
+                    <div class="media-copy align-right reveal">
+                        <img class="section-title-img anime-title" src="Imagens/TITLES/ANIME.png" alt="Anime">
+                        <p>Produced by MAPPA, the anime adaptation of Jujutsu Kaisen premiered in 2020 and quickly became a cultural phenomenon. Renowned for its fluid animation, intense fight sequences, and faithful adaptation, the series redefined the expectations for modern action anime while bringing the atmosphere of the manga to a wider audience.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="dots" aria-label="Controle do slider Manga e Anime">
+                <button class="dot active" data-media-dot="0" aria-label="Tela Manga"></button>
+                <button class="dot" data-media-dot="1" aria-label="Tela Anime"></button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-grid">
+                <div>
+                    <img class="footer-logo" src="Imagens/LOGO.png" alt="Jujutsu Kaisen">
+                    <p>A conceptual fan site built around cursed energy, cinematic darkness, and the contrast between human fear and supernatural force.</p>
+                </div>
+
+                <div>
+                    <h3>Sections</h3>
+                    <ul>
+                        <li><a href="#main">Main</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#characters">Characters</a></li>
+                        <li><a href="#manga-anime" data-footer-manga>Manga and Anime</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Official links</h3>
+                    <ul>
+                        <li><a href="https://www.viz.com/jujutsu-kaisen" target="_blank" rel="noreferrer">VIZ Media</a></li>
+                        <li><a href="https://www.crunchyroll.com/series/GRDV0019R/jujutsu-kaisen" target="_blank" rel="noreferrer">Crunchyroll</a></li>
+                        <li><a href="https://www.shonenjump.com" target="_blank" rel="noreferrer">Shonen Jump</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>Fan project inspired by Jujutsu Kaisen.</span>
+                <span>Not affiliated with Gege Akutami, Shueisha, TOHO, or MAPPA.</span>
+            </div>
+        </footer>
+
+        <div class="modal-overlay" id="character-modal" aria-hidden="true">
+            <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+                <button class="modal-close" id="modal-close" aria-label="Fechar detalhes do personagem">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18"></path>
+                    </svg>
+                </button>
+
+                <figure class="modal-image">
+                    <img id="modal-img" src="Imagens/CHARACTERS/Satoru_Gojo.jpg" alt="">
+                </figure>
+
+                <div class="modal-content">
+                    <p class="modal-kicker" id="modal-title"></p>
+                    <h2 class="modal-name" id="modal-name"></h2>
+                    <div class="modal-divider"></div>
+                    <p class="modal-desc" id="modal-desc"></p>
+                </div>
+            </article>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>© 2024 <span>Gege Akutami</span> / Shueisha. All rights reserved.</p>
-        <p style="font-size:0.68rem; letter-spacing:2px;">Fan Site — Not Affiliated with Official Production</p>
-    </div>
-</footer>
 
-<!-- ===================== CHARACTER MODAL ===================== -->
-<div class="char-modal-overlay" id="char-modal-overlay" onclick="closeModalOnOverlay(event)">
-    <div class="char-modal" id="char-modal">
-        <div class="modal-image" id="modal-image"></div>
-        <div class="modal-content">
-            <p class="modal-role" id="modal-role"></p>
-            <h2 class="modal-name" id="modal-name"></h2>
-            <div class="modal-divider"></div>
-            <p class="modal-desc" id="modal-desc"></p>
-        </div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-</div>
+    <script>
+        const navbar = document.getElementById("navbar");
+        const menuButton = document.getElementById("menu-button");
+        const navLinks = document.querySelectorAll(".nav-links a");
+        const aboutSlider = document.getElementById("about-slider");
+        const mediaSlider = document.getElementById("media-slider");
+        const characterTrack = document.getElementById("character-track");
+        const modal = document.getElementById("character-modal");
+        const modalImg = document.getElementById("modal-img");
+        const modalName = document.getElementById("modal-name");
+        const modalTitle = document.getElementById("modal-title");
+        const modalDesc = document.getElementById("modal-desc");
+        const modalClose = document.getElementById("modal-close");
 
-<script>
-    // === NAV LOAD ===
-    window.onload = () => {
-        setTimeout(() => document.getElementById('navbar').classList.add('loaded'), 200);
-    };
+        let aboutIndex = 0;
+        let mediaIndex = 0;
 
-    // === NAV SCROLL TRANSITION ===
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 80) {
-            navbar.classList.remove('nav-center');
-            navbar.classList.add('nav-top');
-        } else {
-            navbar.classList.add('nav-center');
-            navbar.classList.remove('nav-top');
+        const characters = {
+            gojo: {
+                name: "Satoru Gojo",
+                title: "The Honored One",
+                image: "Imagens/CHARACTERS/Satoru_Gojo.jpg",
+                alt: "Satoru Gojo",
+                desc: "Satoru Gojo is the strongest sorcerer of the modern era, gifted with the Six Eyes and the Limitless technique. His overwhelming power makes him nearly untouchable, but his real influence comes from his desire to change the jujutsu world by protecting and teaching the next generation."
+            },
+            sukuna: {
+                name: "Ryomen Sukuna",
+                title: "King of Curses",
+                image: "Imagens/CHARACTERS/Ryomen_Sukuna.png",
+                alt: "Ryomen Sukuna",
+                desc: "Ryomen Sukuna is a calamity given form. Once the most feared sorcerer in history, his cursed power survived through twenty indestructible fingers. Cruel, intelligent, and impossibly dangerous, he turns every moment inside Yuji's body into a threat."
+            },
+            itadori: {
+                name: "Yuji Itadori",
+                title: "Sukuna's Vessel",
+                image: "Imagens/CHARACTERS/Yuji_Itadori.png",
+                alt: "Yuji Itadori",
+                desc: "Yuji Itadori is a kind-hearted student with extraordinary physical strength. After swallowing Sukuna's finger to save his friends, he becomes the vessel of the King of Curses and enters a world where every victory demands sacrifice."
+            },
+            yuta: {
+                name: "Yuta Okkotsu",
+                title: "Special Grade Sorcerer",
+                image: "Imagens/CHARACTERS/Yuta_Okkotsu.png",
+                alt: "Yuta Okkotsu",
+                desc: "Yuta Okkotsu is a special grade sorcerer whose quiet nature hides a terrifying amount of cursed energy. Bound by grief and love, he grows into one of Jujutsu High's most dependable and dangerous protectors."
+            },
+            toji: {
+                name: "Toji Fushiguro",
+                title: "Sorcerer Killer",
+                image: "Imagens/CHARACTERS/Toji_Fushiguro.PNG",
+                alt: "Toji Fushiguro",
+                desc: "Toji Fushiguro was born without cursed energy, but his Heavenly Restriction gave him monstrous physical ability. As the Sorcerer Killer, he breaks the rules of the jujutsu world through speed, instinct, and brutal precision."
+            }
+        };
+
+        function setAboutSlide(index) {
+            aboutIndex = Math.max(0, Math.min(1, index));
+            aboutSlider.style.transform = `translateX(-${aboutIndex * 100}vw)`;
+            document.querySelectorAll("[data-about-dot]").forEach((dot, i) => {
+                dot.classList.toggle("active", i === aboutIndex);
+            });
         }
-        updateActiveNav();
-    });
 
-    // === ACTIVE NAV LINK ===
-    function updateActiveNav() {
-        const sections = ['about','characters','manga-anime'];
-        const scrollY = window.scrollY + window.innerHeight * 0.4;
-        sections.forEach(id => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const top = el.offsetTop;
-            const bottom = top + el.offsetHeight;
-            const links = document.querySelectorAll('.menu-links a');
-            links.forEach(a => {
-                if (scrollY >= top && scrollY < bottom) {
-                    if (id === 'manga-anime') {
-                        a.classList.remove('active');
-                        if (a.id === 'manga-link' && maCurrentSlide === 0) a.classList.add('active');
-                        if (a.id === 'anime-link' && maCurrentSlide === 1) a.classList.add('active');
-                    } else if (a.getAttribute('href') === '#' + id) {
-                        a.classList.add('active');
-                    } else if (id !== 'manga-anime') {
-                        a.classList.remove('active');
-                    }
-                } else if (id !== 'manga-anime') {
-                    if (a.getAttribute('href') === '#' + id) a.classList.remove('active');
-                }
+        function setMediaSlide(index) {
+            mediaIndex = Math.max(0, Math.min(1, index));
+            mediaSlider.style.transform = `translateX(-${mediaIndex * 100}vw)`;
+            document.querySelectorAll("[data-media-dot]").forEach((dot, i) => {
+                dot.classList.toggle("active", i === mediaIndex);
+            });
+            updateActiveNav();
+        }
+
+        function openCharacterModal(id) {
+            const character = characters[id];
+            if (!character) return;
+
+            modalImg.src = character.image;
+            modalImg.alt = character.alt;
+            modalName.textContent = character.name;
+            modalTitle.textContent = character.title;
+            modalDesc.textContent = character.desc;
+            modal.classList.add("open");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+        }
+
+        function closeCharacterModal() {
+            modal.classList.remove("open");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+        }
+
+        function scrollCharacters(direction) {
+            const amount = characterTrack.clientWidth * 0.72;
+            characterTrack.scrollBy({ left: direction * amount, behavior: "smooth" });
+        }
+
+        function updateActiveNav() {
+            const current = window.scrollY + window.innerHeight * 0.42;
+            const about = document.getElementById("about");
+            const charactersSection = document.getElementById("characters");
+            const media = document.getElementById("manga-anime");
+            let active = "";
+
+            if (current >= about.offsetTop && current < about.offsetTop + about.offsetHeight) active = "about";
+            if (current >= charactersSection.offsetTop && current < charactersSection.offsetTop + charactersSection.offsetHeight) active = "characters";
+            if (current >= media.offsetTop && current < media.offsetTop + media.offsetHeight) active = mediaIndex === 0 ? "manga" : "anime";
+
+            navLinks.forEach((link) => {
+                link.classList.toggle("active", link.dataset.nav === active);
+            });
+        }
+
+        function syncNav() {
+            const onMain = window.scrollY < 80;
+            navbar.classList.toggle("nav-center", onMain);
+            navbar.classList.toggle("nav-top", !onMain);
+            navbar.classList.toggle("is-scrolled", !onMain && window.scrollY > 60);
+            updateActiveNav();
+        }
+
+        document.querySelector("[data-about-next]").addEventListener("click", () => setAboutSlide(1));
+        document.querySelector("[data-about-prev]").addEventListener("click", () => setAboutSlide(0));
+        document.querySelectorAll("[data-about-dot]").forEach((dot) => {
+            dot.addEventListener("click", () => setAboutSlide(Number(dot.dataset.aboutDot)));
+        });
+
+        document.querySelector("[data-media-next]").addEventListener("click", () => setMediaSlide(1));
+        document.querySelector("[data-media-prev]").addEventListener("click", () => setMediaSlide(0));
+        document.querySelectorAll("[data-media-dot]").forEach((dot) => {
+            dot.addEventListener("click", () => setMediaSlide(Number(dot.dataset.mediaDot)));
+        });
+
+        document.querySelector('[data-nav="manga"]').addEventListener("click", () => setTimeout(() => setMediaSlide(0), 260));
+        document.querySelector('[data-nav="anime"]').addEventListener("click", () => setTimeout(() => setMediaSlide(1), 260));
+        document.querySelector("[data-footer-manga]").addEventListener("click", () => setTimeout(() => setMediaSlide(0), 260));
+
+        document.getElementById("characters-prev").addEventListener("click", () => scrollCharacters(-1));
+        document.getElementById("characters-next").addEventListener("click", () => scrollCharacters(1));
+
+        document.querySelectorAll(".character-card").forEach((card) => {
+            card.addEventListener("click", () => openCharacterModal(card.dataset.character));
+        });
+
+        modalClose.addEventListener("click", closeCharacterModal);
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) closeCharacterModal();
+        });
+
+        menuButton.addEventListener("click", () => {
+            const open = navbar.classList.toggle("menu-open");
+            menuButton.setAttribute("aria-expanded", String(open));
+        });
+
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                navbar.classList.remove("menu-open");
+                menuButton.setAttribute("aria-expanded", "false");
             });
         });
-    }
 
-    // === MANGA LINK ===
-    document.getElementById('manga-link').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('manga-anime').scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => moveMASlider(0), 300);
-    });
+        document.addEventListener("keydown", (event) => {
+            const aboutVisible = isSectionFocused("about");
+            const mediaVisible = isSectionFocused("manga-anime");
 
-    // === ANIME LINK ===
-    document.getElementById('anime-link').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('manga-anime').scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => moveMASlider(1), 300);
-    });
+            if (event.key === "Escape") {
+                closeCharacterModal();
+                navbar.classList.remove("menu-open");
+                menuButton.setAttribute("aria-expanded", "false");
+            }
 
-    // === SCROLL REVEAL ===
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) e.target.classList.add('visible');
+            if (event.key === "ArrowRight") {
+                if (aboutVisible) setAboutSlide(1);
+                if (mediaVisible) setMediaSlide(1);
+            }
+
+            if (event.key === "ArrowLeft") {
+                if (aboutVisible) setAboutSlide(0);
+                if (mediaVisible) setMediaSlide(0);
+            }
         });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // === ABOUT SLIDER ===
-    let aboutCurrentSlide = 0;
-    function moveAboutSlider(index) {
-        aboutCurrentSlide = index;
-        const wrapper = document.getElementById('about-slider-wrapper');
-        wrapper.style.transform = `translateX(-${index * 50}%)`;
-        document.querySelectorAll('#about .indicator-dot').forEach((d, i) => {
-            d.classList.toggle('active', i === index);
-        });
-    }
-
-    // === MANGA/ANIME SLIDER ===
-    let maCurrentSlide = 0;
-    function moveMASlider(index) {
-        maCurrentSlide = index;
-        const wrapper = document.getElementById('ma-slider-wrapper');
-        wrapper.style.transform = `translateX(-${index * 50}%)`;
-        document.querySelectorAll('#ma-indicators .indicator-dot').forEach((d, i) => {
-            d.classList.toggle('active', i === index);
-        });
-        document.getElementById('manga-link').classList.toggle('active', index === 0);
-        document.getElementById('anime-link').classList.toggle('active', index === 1);
-    }
-
-    // === CHARACTERS CAROUSEL ===
-    const cardsContainer = document.getElementById('cards-container');
-    function scrollCards(dir) {
-        const amount = cardsContainer.clientWidth / 2;
-        cardsContainer.scrollBy({ left: dir * amount, behavior: 'smooth' });
-    }
-
-    // === CHARACTER DATA ===
-    const characters = {
-        gojo: {
-            name: 'Satoru Gojo',
-            role: 'The Honored One · The strongest sorcerer of today',
-            image: 'Imagens/DESCRI/GOJO.jpg',
-            desc: 'Widely regarded as the strongest jujutsu sorcerer in existence, Satoru Gojo possesses an immense amount of cursed energy and techniques inherited from the Gojo family. His Six Eyes and Limitless ability — especially Infinity — make him practically untouchable. Beyond his raw power, Gojo is committed to revolutionizing the jujutsu world by educating a new generation of powerful sorcerers.'
-        },
-        sukuna: {
-            name: 'Ryomen Sukuna',
-            role: 'King of Curses · The strongest sorcerer of the history',
-            image: 'Imagens/DESCRI/SUKUNA.jpg',
-            desc: 'Known as the "King of Curses," Ryomen Sukuna was the most powerful cursed spirit to ever exist. Over a thousand years ago, sorcerers failed to kill him, and his cursed energy was instead sealed within his own 20 indestructible fingers. He resides within Yuji Itadori as a vessel, and his immense power, cunning, and utter contempt for humanity make him one of the most fearsome entities in the series.'
-        },
-        itadori: {
-            name: 'Yuji Itadori',
-            role: "Sukuna's Vessel · The strongest sorcerer of tomorrow",
-            image: 'Imagens/DESCRI/ITADORI.jpg',
-            desc: "Yuji Itadori is a high school student with superhuman physical abilities inherited from his grandfather. After swallowing one of Sukuna's fingers to save his friends, he became the vessel for the King of Curses. Sentenced to death by the jujutsu world, Itadori is allowed to live under one condition: consume all 20 of Sukuna's fingers so the curse can be fully destroyed along with him."
-        },
-        yuta: {
-            name: 'Yuta Okkotsu',
-            role: 'The Prodige · The strongest prodige of today',
-            image: 'Imagens/DESCRI/YUTA.jpg',
-            desc: "Yuta Okkotsu is a second-year student at Jujutsu High and one of only four Special Grade sorcerers, initially haunted by the powerful cursed spirit of his childhood friend, Rika Orimoto. Possessing a nearly bottomless reservoir of cursed energy, he has the rare ability to copy the techniques of others and manifest devastating displays of power. Though he began his journey defined by shyness and debilitating guilt, Yuta has evolved into a resilient and determined protector whose potential is said to be second only to Satoru Gojo himself."
-        },
-        toji: {
-            name: 'Toji Fushiguro',
-            role: 'Sorcerer Killer · The One who left it all behind',
-            image: 'Imagens/DESCRI/TOJI.png',
-            desc: "Toji Fushiguro is a former member of the Zenin clan and the infamous Sorcerer Killer known for being born with a Heavenly Restriction that completely erased his cursed energy in exchange for superhuman physical prowess. A master of tactical combat and cursed tools, he operates with pragmatic coldness, relying on his sharpened senses to hunt down the most powerful jujutsu practitioners. His very existence defies the established laws of the jujutsu world, making him one of the few individuals capable of altering the threads of fate through sheer brute force."
-        },
-    };
-
-    function openModal(id) {
-        const c = characters[id];
-        document.getElementById('modal-image').style.backgroundImage = `url('${c.image}')`;
-        document.getElementById('modal-role').textContent = c.role;
-        document.getElementById('modal-name').textContent = c.name;
-        document.getElementById('modal-desc').textContent = c.desc;
-        document.getElementById('char-modal-overlay').classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('char-modal-overlay').classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
-    function closeModalOnOverlay(e) {
-        if (e.target === document.getElementById('char-modal-overlay')) closeModal();
-    }
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
-    });
-
-    document.addEventListener('keydown', (e) => {
-        const aboutSection = document.getElementById('about');
-        const maSection = document.getElementById('manga-anime');
-        const inAbout = isInViewport(aboutSection);
-        const inMA = isInViewport(maSection);
-
-        if (e.key === 'ArrowRight') {
-            if (inAbout) moveAboutSlider(1);
-            if (inMA) moveMASlider(1);
+        function isSectionFocused(id) {
+            const section = document.getElementById(id);
+            const rect = section.getBoundingClientRect();
+            return rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.5;
         }
-        if (e.key === 'ArrowLeft') {
-            if (inAbout) moveAboutSlider(0);
-            if (inMA) moveMASlider(0);
-        }
-    });
 
-    function isInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.5;
-    }
-</script>
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.18 });
+
+        document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+        window.addEventListener("scroll", syncNav, { passive: true });
+        window.addEventListener("resize", updateActiveNav);
+
+        syncNav();
+    </script>
 </body>
 </html>
